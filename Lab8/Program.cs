@@ -25,7 +25,7 @@ namespace Lab8
             // User Input for Array Length
             Console.WriteLine("Please Enter the Number of Times at Bat: ");
             int size = int.Parse(Console.ReadLine());
-
+            Console.WriteLine();
 
             // Declare Variables
             int[] AtBat = new int[size];
@@ -44,6 +44,7 @@ namespace Lab8
                 {
                     Console.WriteLine($"Result of at bats {i}:");
                     AtBat[i] = int.Parse(Console.ReadLine());
+                    Console.WriteLine();
                 }
 
 
