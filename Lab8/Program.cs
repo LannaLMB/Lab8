@@ -1,7 +1,13 @@
 ﻿/*  Author:  Lanna Brasure
- *  Date:  418/17
+ *  Created:  4/18/17
+ *  Last Updated:  4/18/17
  *  Program:  Lab 8 - Batting Average Calculator
  */
+
+
+ // TO DO:
+ // Create Methods
+ // Validate User Input for At Bat
 
 
 using System;
@@ -23,10 +29,10 @@ namespace Lab8
 
 
             // Declare Variables
+            int size;
             double SlugPerc;
             double BatAve;
-            string Continue;
-
+            
 
             // Continue to Add Another Batter
             while (true)
@@ -35,7 +41,9 @@ namespace Lab8
                 // User Input for Array Length
                 Console.WriteLine("------------------------------------------------");
                 Console.Write("Please Enter the Number of Times At-Bat:  --->   ");
-                int size = int.Parse(Console.ReadLine());
+
+                // Call GetValidInt Method
+                size = GetValidInt();
                 Console.WriteLine("\n");
 
                 int[] AtBat = new int[size];
@@ -52,20 +60,14 @@ namespace Lab8
                 // Getting User Input for AtBat
                 for (int i = 0; i <= size - 1; i++)
                 {
-
-
+  
                     Console.Write($"Result of At-Bats {i}:  --->   ");
-                    AtBat[i] = int.Parse(Console.ReadLine());
-                    Console.WriteLine();
-                    {
-                        if (AtBat[i] > 4)
-                        {
-                            Console.WriteLine("The Result Entered MUST Be 0, 1, 2, 3, OR 4.");
-                            return;
-                        }   
-                    }
-                }
 
+                    // Call Method GetRange
+                    AtBat[i] = GetRange(0, 4);
+                    Console.WriteLine();
+
+                }
 
 
 
@@ -84,36 +86,100 @@ namespace Lab8
 
 
                 // Get Slugging Perentage
-                SlugPerc = ((double)sum / (double)size);
+                SlugPerc = ((double)sum / size);
                 Console.WriteLine();
-                Console.WriteLine("The Slugging Percentage is: " + SlugPerc.ToString("#,#.000"));  // Convert Slugging Percentage to a string to get formatted with 3 decimal places
+
+                // Convert Slugging Percentage to a string to get formatted with 3 decimal places
+                Console.WriteLine("The Slugging Percentage is: " + SlugPerc.ToString("#,#.000"));
+
 
 
                 //Get Batting Average
-                BatAve = ((double)count / (double)size);
-                Console.WriteLine("The Batting Average is: " + BatAve.ToString("#,#0.000"));  // Convert Batting Average to a string to get formatted with 3 decimal places
+                BatAve = ((double)count / size);
+
+                // Convert Batting Average to a string to get formatted with 3 decimal places
+                Console.WriteLine("The Batting Average is: " + BatAve.ToString("#,0.000"));
 
 
 
-
-                //Continue Loop
-                while (true)
+                // Call Continue Method
+                if (!GetContinue())
                 {
-                    Console.WriteLine("\n");
-                    Console.WriteLine("Another Batter?  (y/n)");
-                    Continue = Console.ReadLine().ToUpper();
-                    Console.WriteLine("");
-                    if (Continue == "Y")
-                        break;
-
-                    if (Continue == "N")
-                        return;
-
-                    else
-                        Console.ForegroundColor = ConsoleColor.Red;  // Red to Alert User Input is Invalid
-                        Console.WriteLine("Please Enter Y or N");
-                        Console.ForegroundColor = ConsoleColor.Green;   // Green to Go Back to Original Color
+                    return;
                 }
+            }
+        }
+
+
+
+
+
+        // Method to Validate Input
+        public static int GetValidInt()
+        {
+
+            int number;
+
+            // Validate Input
+            while (!int.TryParse(Console.ReadLine(), out number))
+            {
+                Console.WriteLine();
+
+                // Number Validation with Colors
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine();
+                Console.Write("You Must Enter a Number:  --->   ");
+                Console.ForegroundColor = ConsoleColor.Green;
+
+            }
+            return number;
+        }
+
+
+
+
+        // Method to Get Input and Validate That Number is Between 0 and 4.
+        public static int GetRange(int min, int max)
+        {
+
+            // Get a Valid Int from Previous Method
+            int number = GetValidInt();
+
+            while (number <  0 || number > 4)
+            {
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write("You MUST Enter a Number That is in Between 0 and 4  --->   ");
+                Console.ForegroundColor = ConsoleColor.Green;
+                number = GetValidInt();
+            }
+            return number;
+
+        }
+
+
+
+        // Method to Continue
+        public static bool GetContinue()
+        {
+            string Continue;
+            //Continue Loop
+            while (true)
+            {
+                Console.WriteLine("\n");
+                Console.WriteLine("Another Batter?  (y/n)");
+                Continue = Console.ReadLine().ToUpper();
+                Console.WriteLine("");
+                if (Continue == "Y")
+                    return true;
+
+                if (Continue == "N")
+                    return false;
+
+                else
+                    Console.ForegroundColor = ConsoleColor.Red;  // Red to Alert User Input is Invalid
+                Console.WriteLine("Please Enter Y or N");
+                Console.ForegroundColor = ConsoleColor.Green;   // Green to Go Back to Original Color
             }
         }
     }
