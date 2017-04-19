@@ -16,35 +16,54 @@ namespace Lab8
     {
         static void Main(string[] args)
         {
-            
+
             // Welcome Message
-            Console.WriteLine("Welcome To The Batting Average Calculator!");
+            Console.WriteLine("\nWelcome To The Batting Average Calculator!");
             Console.WriteLine();
 
-
-            // User Input for Array Length
-            Console.WriteLine("Please Enter the Number of Times at Bat: ");
-            int size = int.Parse(Console.ReadLine());
-            Console.WriteLine();
 
             // Declare Variables
-            int[] AtBat = new int[size];
             double SlugPerc;
             double BatAve;
             string Continue;
 
-            // Key/Legend
-            Console.WriteLine("0 = Out 1 = Single 2 = Double 3 = Triple 4 = Homerun");
-            Console.WriteLine();
 
-
+            // Continue to Add Another Batter
             while (true)
             {
+
+                // User Input for Array Length
+                Console.WriteLine("------------------------------------------------");
+                Console.Write("Please Enter the Number of Times At-Bat:  --->   ");
+                int size = int.Parse(Console.ReadLine());
+                Console.WriteLine("\n");
+
+                int[] AtBat = new int[size];
+
+
+
+                // Key/Legend
+                Console.WriteLine("******************  Legend / Key ***********************");
+                Console.WriteLine("0 = Out  1 = Single  2 = Double  3 = Triple  4 = Homerun");
+                Console.WriteLine("\n");
+
+
+
+                // Getting User Input for AtBat
                 for (int i = 0; i <= size - 1; i++)
                 {
-                    Console.WriteLine($"Result of at bats {i}:");
+
+
+                    Console.Write($"Result of At-Bats {i}:  --->   ");
                     AtBat[i] = int.Parse(Console.ReadLine());
                     Console.WriteLine();
+                    {
+                        if (AtBat[i] > 4)
+                        {
+                            Console.WriteLine("The Result Entered MUST Be 0, 1, 2, 3, OR 4.");
+                            return;
+                        }   
+                    }
                 }
 
 
@@ -61,13 +80,18 @@ namespace Lab8
                         count++;
                     }
                 }
-                SlugPerc = (double)sum / (double)size;
-                //Console.WriteLine("The Slugging Percentage is: " + SlugPerc);
-                Console.WriteLine("The Slugging Percentage is: " + SlugPerc.ToString("#,#.000"));
 
+
+
+                // Get Slugging Perentage
+                SlugPerc = ((double)sum / (double)size);
+                Console.WriteLine();
+                Console.WriteLine("The Slugging Percentage is: " + SlugPerc.ToString("#,#.000"));  // Convert Slugging Percentage to a string to get formatted with 3 decimal places
+
+
+                //Get Batting Average
                 BatAve = ((double)count / (double)size);
-                //Console.WriteLine("The Batting Average is: " + BatAve);
-                Console.WriteLine("The Batting Average is: " + BatAve.ToString("#,#0.000"));
+                Console.WriteLine("The Batting Average is: " + BatAve.ToString("#,#0.000"));  // Convert Batting Average to a string to get formatted with 3 decimal places
 
 
 
@@ -75,7 +99,7 @@ namespace Lab8
                 //Continue Loop
                 while (true)
                 {
-                    Console.WriteLine("");
+                    Console.WriteLine("\n");
                     Console.WriteLine("Another Batter?  (y/n)");
                     Continue = Console.ReadLine().ToUpper();
                     Console.WriteLine("");
@@ -86,7 +110,9 @@ namespace Lab8
                         return;
 
                     else
+                        Console.ForegroundColor = ConsoleColor.Red;  // Red to Alert User Input is Invalid
                         Console.WriteLine("Please Enter Y or N");
+                        Console.ForegroundColor = ConsoleColor.Green;   // Green to Go Back to Original Color
                 }
             }
         }
