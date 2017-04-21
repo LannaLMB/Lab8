@@ -1,13 +1,9 @@
 ﻿/*  Author:  Lanna Brasure
  *  Created:  4/18/17
- *  Last Updated:  4/18/17
+ *  Last Updated:  4/19/17
  *  Program:  Lab 8 - Batting Average Calculator
  */
 
-
- // TO DO:
- // Create Methods
- // Validate User Input for At Bat
 
 
 using System;
@@ -145,11 +141,11 @@ namespace Lab8
             // Get a Valid Int from Previous Method
             int number = GetValidInt();
 
-            while (number <  0 || number > 4)
+            while (number <  min || number > max)
             {
                 Console.WriteLine();
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.Write("You MUST Enter a Number That is in Between 0 and 4  --->   ");
+                Console.Write($"You MUST Enter a Number That is in Between {min} and {max}  --->   ");
                 Console.ForegroundColor = ConsoleColor.Green;
                 number = GetValidInt();
             }
@@ -176,11 +172,12 @@ namespace Lab8
                 if (Continue == "N")
                     return false;
 
-                else
-                    Console.ForegroundColor = ConsoleColor.Red;  // Red to Alert User Input is Invalid
-                Console.WriteLine("Please Enter Y or N");
-                Console.ForegroundColor = ConsoleColor.Green;   // Green to Go Back to Original Color
-            }
+                else {
+					Console.ForegroundColor = ConsoleColor.Red;  // Red to Alert User Input is Invalid
+					Console.WriteLine("Please Enter Y or N");
+					Console.ForegroundColor = ConsoleColor.Green;   // Green to Go Back to Original Color
+				}
+			}
         }
     }
 }
